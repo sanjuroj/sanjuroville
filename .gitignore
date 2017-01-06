@@ -1,0 +1,8 @@
+
+settings_*
+paste/
+todo.txt
+
+*.log
+*.pot
+*.pyc

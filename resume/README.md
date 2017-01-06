@@ -1,0 +1,1 @@
+This is the server side of my website, sanjuroville.net.  It mostly consists of the database structure and the API setup. 
