@@ -1,0 +1,54 @@
+#contact-div {
+  float: right;
+  height: 0px;
+  width: 0px;
+}
+
+@media (max-width: 767px){
+  .resume-body {
+    padding-right: 80px;
+  }
+
+  #contact {
+    &-links {
+      visibility: hidden;
+    }
+
+    &-icons {
+      right: 50px;
+      top: 100px;
+      position: fixed;
+      /*background-color: #033644;*/
+      
+    }
+
+    &-icons img {
+      height: 25px;
+      margin-bottom: 10px;
+
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #contact {
+    &-icons {
+      visibility: hidden;
+    }
+
+    &-links {
+      width: 90px;
+      height: 100px;
+      right: 10px;
+      top: 100px;
+      position: fixed;
+      background-color: #033644;
+      float: right;
+      padding: 10px;
+    }
+
+    &-links a{
+      color: #df691a;
+    }
+  }
+}
