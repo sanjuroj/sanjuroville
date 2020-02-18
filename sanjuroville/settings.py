@@ -19,7 +19,6 @@ from .settings_local import *
 
 INSTALLED_APPS = (
     'rest_framework',
-    'resume.apps.ResumeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,6 +27,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'sslserver',
     'django.contrib.sites',
+    'sanjuroville',
+    'resume',
 )
 
 MIDDLEWARE = (

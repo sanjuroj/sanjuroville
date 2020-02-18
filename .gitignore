@@ -2,6 +2,7 @@
 settings_*
 paste/
 todo.txt
+node_modules
 .idea
 *.log
 *.pot

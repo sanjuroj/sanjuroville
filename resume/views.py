@@ -1,12 +1,10 @@
 import importlib
-from django.shortcuts import render
 from .models import *
 
-from rest_framework import generics, serializers
+from rest_framework import serializers
 from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.http.response import JsonResponse
 
-# Create your views here.
 
 class ExpandedModelSerializer(serializers.ModelSerializer):
 
@@ -29,7 +27,6 @@ class APIAll (APIView):
     }
 
     def serializer_factory(self, model_name, highlights_model_name):
-        # print('mname=', modelName)
         models_module = importlib.import_module('.models', 'resume')
         main_model = getattr(models_module, model_name)
 
@@ -41,7 +38,6 @@ class APIAll (APIView):
             class Meta:
                 model = highlights_model
                 fields = ['highlight']
-
 
         class MainSerializer(ExpandedModelSerializer):
             if highlights_model_name:
@@ -67,13 +63,13 @@ class APIAll (APIView):
             ('Language', None)
         ]
 
-        responseArray = dict()
+        response = dict()
 
         for model, highlight_model in categories:
             # print(type(cat))
             # print(serializer.__repr__())
             serializer = self.serializer_factory(model, highlight_model)
 
-            responseArray[model.lower()] = serializer.data
+            response[model.lower()] = serializer.data
 
-        return Response(responseArray)
+        return JsonResponse(response)
