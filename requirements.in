@@ -1,13 +1,9 @@
 pip-tools
-# Babel==2.3.4
 Django
-django-cors-headers==1.3.1
-django-phonenumber-field==1.1.0
-django-sslserver==0.19
+django-phonenumber-field
 djangorestframework
 Markdown
 pep8
-# phonenumberslite==7.3.1
+phonenumberslite  # needed by django-phonenumber-field
 psycopg2
-# pytz==2016.10
 titlecase
