@@ -5,18 +5,17 @@ export default class HighlightBox extends Component {
     
     makeHighlights(){
         if(this.props.highlights.length > 1){
-            const highlightArray = this.props.highlights.map( (hLight, key) => {
+            return this.props.highlights.map( (hLight, key) => {
                 return (
                     <li className={'highlight'} key={key}>
-                        <SimpleText text={hLight} />
+                        <SimpleText text={hLight.highlight} />
                     </li>
                 );
 
             });
-            return highlightArray;
         }
         else {
-            return(<SimpleText text={this.props.highlights[0]} />);
+            return(<SimpleText text={this.props.highlights[0].highlight} />);
         }
     }
     
