@@ -6,4 +6,5 @@ Markdown
 pep8
 phonenumberslite  # needed by django-phonenumber-field
 psycopg2
+requests
 titlecase

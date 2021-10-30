@@ -20,5 +20,6 @@ from sanjuroville.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('resume.urls')),
+    path('library/', include('library.urls')),
     re_path('', index, name='index')
 ]
