@@ -46,7 +46,7 @@ export default class ControlBar extends Component {
                     <Button 
                         expandable={this.props.expandable} 
                         action={compress_all} 
-                        text="Compress All" 
+                        text="Collapse All"
                         dispatch={this.props.dispatch}/>
                 </div>
             </div>
