@@ -23,9 +23,6 @@ export default class Header extends Component {
                     <LinkContainer to={{pathname: "/resume"}} >
                       <NavItem>Resumé</NavItem>
                     </LinkContainer>
-                    <LinkContainer to={{pathname: "/about"}} >
-                      <NavItem>About</NavItem>
-                    </LinkContainer>
                   </Nav>
                 </Navbar.Collapse>
             </Navbar>

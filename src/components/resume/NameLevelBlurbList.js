@@ -13,7 +13,10 @@ export default class NameLevelBlurbList extends Component {
             return (
                 <li key={key}> 
                     <span className="nlb-name">{item.name} </span>
-                    ({item.level}){summary}
+                    {this.props.showLevels !== false &&
+                        `(${item.level})`
+                    }
+                    {summary}
                 </li>
             );
 
