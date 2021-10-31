@@ -71,7 +71,7 @@ class Resume extends Component {
                 <div className="resume-body container">
                     <ContactBox />
                     <div className="resume-heading">
-                        I love making data useful and digestible.  Whether that it's related to
+                        I love making data useful and digestible.  Whether it's related to
                         finances, DNA sequences, or international development I have enjoyed
                         the technical challenges of organizing, analyzing, and ultimately, telling a
                         story with data.  Sometimes I'm the one telling the story, but often I'm
