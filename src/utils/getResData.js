@@ -1,12 +1,9 @@
 export function getDatedData(resumeData, groupFlag){
-    
-    //console.log('getresdata rdata=', resumeData);
+
     let datedCategories = ['job', 'education', 'volunteer'];
     
     let returnData = [];
-    //groupFlag = false;
     for (let cat of datedCategories) {
-        //console.log('getdated this', this);
         let catObj = {};
         var catData = resumeData[cat];
         if (cat == 'job'){
@@ -35,15 +32,13 @@ export function getDatedData(resumeData, groupFlag){
         }
         catObj.data = catObj.data.map(function(item){
             item.icon = cat;
-            //console.log('grd endate parse', Date.prototype.toString(Date.parse(item.endDate)));
-            item.endDate = new Date(item.endDate);
+            item.endDate = item.endDate ? new Date(item.endDate) : null;
             item.startDate = new Date(item.startDate);
             return item;
         });
 
 
         if (groupFlag == true || groupFlag == null){
-
             returnData.push(catObj);    
         }
         else {
@@ -57,15 +52,21 @@ export function getDatedData(resumeData, groupFlag){
         }
     }
 
-    const sortedData = sortCategoryData(returnData);
-    //console.log('grd sorted', sortedData);
-    return sortedData;
+    return sortCategoryData(returnData);
 }
 
 export function sortCategoryData(catData) {
     for(var cat of catData) {
         cat.data.sort(function(a,b){
+            // If there's no end date, it's a current activity and should be first on the list
+            if (!a.endDate){
+                return -1
+            }
+            if (!b.endDate) {
+                return 1
+            }
             return b.endDate - a.endDate;
+
         });
     }
     return catData;

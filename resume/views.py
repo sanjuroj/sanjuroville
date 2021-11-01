@@ -13,7 +13,6 @@ class ExpandedModelSerializer(serializers.ModelSerializer):
 
         extra_fields = getattr(self.Meta, 'extra_fields', set())
         exclude_fields = getattr(self.Meta, 'exclude_fields', set())
-        # print('filed list', list(((base_fields | extra_fields)) - exclude_fields))
         return list((((base_fields | extra_fields)) - exclude_fields))
 
 
@@ -66,10 +65,6 @@ class APIAll (APIView):
         response = dict()
 
         for model, highlight_model in categories:
-            # print(type(cat))
-            # print(serializer.__repr__())
             serializer = self.serializer_factory(model, highlight_model)
-
             response[model.lower()] = serializer.data
-
         return JsonResponse(response)

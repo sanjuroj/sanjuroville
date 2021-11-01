@@ -18,13 +18,8 @@ export default class Button extends Component {
     }
 
     handleClick(){
-        //console.log('button props', this.props)
-        //let setFunc = this.setButtonState;
         this.setButtonState(true);
         this.props.dispatch(this.props.action(this.props.expandable));
-        // setTimeout(function(){
-        //     this.setButtonState.bind(this)(false);
-        // }, 2000);
     }
 
     render(){

@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown';
 export default class TitleCard extends Component {
 
     clickAction(e) {
-        //console.log('clicked highlights')
         let re = new RegExp("http");
         if (!re.test(e.target)) {
             this.props.dispatch({
@@ -30,7 +29,18 @@ export default class TitleCard extends Component {
         
         const hasHighlights = this.props.highlights.length > 0 ? true : false;
         let start = this.props.startDate.getUTCFullYear();
-        let end = this.props.endDate.getUTCFullYear();
+        let end = this.props.endDate ? this.props.endDate.getUTCFullYear() : null;
+        let dateString = ''
+        if (!end) {
+            dateString = `${start} - present`;
+        }
+        else if (start === end) {
+            dateString = start;
+        }
+        else {
+            dateString = `${start} - ${end}`
+        }
+
         let titleSpanClasses = 'title ilb';
         let summarySpanClasses = 'summary';
         
@@ -62,7 +72,7 @@ export default class TitleCard extends Component {
         const dateComponent =  
             <SimpleText 
                 key="1" 
-                text={start == end ? start : start + " - " + end}
+                text={dateString}
                 spanClasses="title-date" 
                 divClasses="title-element"
             />
@@ -117,7 +127,6 @@ export default class TitleCard extends Component {
     }
 
     render(){
-        //console.log('tc props', this.props)
         const hasHighlights = this.props.highlights.length > 0;
         let className = 'title-card';
         let expandable = false;

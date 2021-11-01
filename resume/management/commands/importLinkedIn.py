@@ -40,9 +40,7 @@ class Command(BaseCommand):
             if f in importMap:
                 self.processCSV(os.path.join(basePath, f), importMap[f])
 
-
     def processCSV(self, filePath, modelName):
-            # print('file, model=', filePath, model)
             fieldMap = self.fieldMaps[modelName]
             Model = getattr(importlib.import_module('resume.models'), modelName)
             with open(filePath, 'r') as fh:
@@ -62,9 +60,7 @@ class Command(BaseCommand):
                             attrDict[fieldMap[key] + 'Precision'] = precision
                         else:
                             attrDict[fieldMap[key]] = row[key]
-                    #print('attrdict=', attrDict)
                     modInst = Model(**attrDict)
-                    #print('modinst', modInst)
                     modInst.save()
                     for key in highlightFields:
                         if len(row[key]) > 2:
@@ -87,7 +83,6 @@ class Command(BaseCommand):
 
 
     def dateConvert(self, dateString):
-        #print('match groups', match.groups)
         if len(dateString) == 4:
             return (datetime.date(int(dateString),1,1), 'y')
         else:

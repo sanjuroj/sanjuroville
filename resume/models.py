@@ -41,8 +41,8 @@ class Job(models.Model):
     startDate = models.DateField(max_length=255)
     startDatePrecision = models.CharField(max_length=1,
         choices=(('d', 'Day'), ('m', 'Month'), ('y', 'Year')))
-    endDate = models.DateField(max_length=255)
-    endDatePrecision = models.CharField(max_length=1,
+    endDate = models.DateField(null=True, blank=True, max_length=255)
+    endDatePrecision = models.CharField(null=True, blank=True, max_length=1,
         choices=(('d', 'Day'), ('m', 'Month'), ('y', 'Year')))
     summary = models.TextField(blank=True)
     location = models.CharField(max_length=255, blank=True, null=True)

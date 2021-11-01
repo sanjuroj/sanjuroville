@@ -25,7 +25,6 @@ export default class NameLevelBlurbList extends Component {
 
 
     render() {
-        //console.log('nlbl props', this.props)
         return (
             <div>
                 <p className="category-title">{this.props.heading}</p>
