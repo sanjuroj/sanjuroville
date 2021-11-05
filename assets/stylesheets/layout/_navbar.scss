@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=VT323");
+
+
+
+.navbar {
+    background-color: #033644;
+    min-height: 80px;
+   
+    &-header {
+        padding-top: 20px;
+    }
+
+    &-brand {
+        font-size: 5em;
+        font-family: 'VT323', serif;
+    }
+
+    &-nav {
+        padding-top: 30px;
+        padding-bottom: 0px;
+        font-size: 1.2em;
+        margin-right: 20px;
+
+        li {
+            padding-right: 4px;
+            padding-left: 4px;    
+        }
+
+    }
+
+ 
+    > .container {
+        width: 95%;
+    }
+}
+
+
+
+
+
+
+
+#nav-menu > li > a {
+    border-color: #033644;
+    border-width: 2px;
+    border-style: solid;
+
+    &:hover {
+        border-color: #c85e17;
+        border-width: 2px;
+        border-style: solid;
+        
+        background-color: #4e5d6c;
+    }
+}
+

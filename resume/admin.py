@@ -50,6 +50,8 @@ class SkillAdmin(admin.ModelAdmin):
     inlines = [
         SkillKeywordInline
     ]
+    list_display = ('name', 'skill_group', 'sort_order')
+    ordering = ('skill_group', 'sort_order', 'name')
 
 
 class InterestKeywordInline(admin.StackedInline):

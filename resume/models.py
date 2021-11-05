@@ -41,8 +41,8 @@ class Job(models.Model):
     startDate = models.DateField(max_length=255)
     startDatePrecision = models.CharField(max_length=1,
         choices=(('d', 'Day'), ('m', 'Month'), ('y', 'Year')))
-    endDate = models.DateField(max_length=255)
-    endDatePrecision = models.CharField(max_length=1,
+    endDate = models.DateField(null=True, blank=True, max_length=255)
+    endDatePrecision = models.CharField(null=True, blank=True, max_length=1,
         choices=(('d', 'Day'), ('m', 'Month'), ('y', 'Year')))
     summary = models.TextField(blank=True)
     location = models.CharField(max_length=255, blank=True, null=True)
@@ -52,7 +52,7 @@ class Job(models.Model):
 
 
 class JobHighlight(models.Model):
-    job = models.ForeignKey('Job', related_name='highlights')
+    job = models.ForeignKey('Job', related_name='highlights', on_delete=models.CASCADE)
     highlight = models.TextField()
 
     def __str__(self):
@@ -80,7 +80,7 @@ class Volunteer(models.Model):
 
 
 class VolunteerHighlight(models.Model):
-    volunteer = models.ForeignKey('Volunteer', related_name='highlights')
+    volunteer = models.ForeignKey('Volunteer', related_name='highlights', on_delete=models.CASCADE)
     highlight = models.TextField()
 
     def __str__(self):
@@ -108,7 +108,7 @@ class Education(models.Model):
 
 
 class EducationHighlight(models.Model):
-    education = models.ForeignKey('Education', related_name='highlights')
+    education = models.ForeignKey('Education', related_name='highlights', on_delete=models.CASCADE)
     highlight = models.TextField()
 
     def __str__(self):
@@ -147,9 +147,25 @@ class Publication(models.Model):
 
 
 class Skill(models.Model):
+    # These will appear in order on the resume page
+    SKILL_GROUPS = (
+        ('languages', 'Languages'),
+        ('frameworks', 'Frameworks/CMS'),
+        ('databases', 'Databases'),
+        ('data_analysis', 'Data Analysis'),
+        ('server', 'Server/Dev Ops'),
+        ('other', 'Other')
+    )
+    # SKILL_GROUPS = [{key: label} for key, label in SKILL_CHOICES]
+
     name = models.CharField(max_length=255)
     level = models.CharField(max_length=255, blank=True)
     summary = models.CharField(max_length=255, blank=True)
+    skill_group = models.CharField(max_length=255, null=True, choices=SKILL_GROUPS)
+    sort_order = models.IntegerField(null=True)
+
+    class Meta():
+        unique_together = ['skill_group', 'sort_order']
 
     def __str__(self):
         return self.name

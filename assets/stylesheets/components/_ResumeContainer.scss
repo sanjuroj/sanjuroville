@@ -1,0 +1,91 @@
+.resume-body {
+  padding-right: 120px;
+}
+
+
+.category-title {
+  margin-bottom: .2em;
+  margin-top: 3em;
+  font-weight: bold;
+}
+
+.category-container {
+  margin-top: 1em;
+}
+
+.ilb {
+  display: inline-block;
+}
+
+
+
+/* ============================================================
+  Timeline
+============================================================ */
+
+.timeline-circle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  margin-left: -5px;
+  margin-top: 5px;
+  border-radius: 50%;
+}
+
+.job {
+  background-color: #5B903E;
+}
+
+.volunteer {
+  background-color: #C67070;
+}
+
+.education {
+  background-color: #784C83;
+}
+
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+
+
+/* ============================================================
+  Timeline
+============================================================ */
+
+
+#timeline {
+  position: relative;
+  padding-bottom: 1em;
+  /*margin-top: 2em;*/
+  margin-bottom: 2em;
+
+
+
+   /* this is the vertical line */
+   
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    background: #d7e4ed;
+  }
+
+}
+

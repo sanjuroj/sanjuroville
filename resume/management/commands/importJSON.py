@@ -6,41 +6,90 @@ import csv
 import datetime
 import sys
 import re
+import json
 from titlecase import titlecase
+from collections import defaultdict
+
+from resume.models import (Job, JobHighlight, Education, EducationHighlight, Volunteer, VolunteerHighlight,
+    Language, Basics, Profile, Skill)
 
 
 class Command(BaseCommand):
 
-    help = "Import data exported from LinkedIn"
+    help = "Import data exported from a JSON dump"
 
     def add_arguments(self, parser):
         parser.add_argument('resource')
 
     def handle(self, *args, **options):
-        resource = options['resource']
-        fileList = []
-        if os.path.isfile(resource):
-            fileList.append(resource)
-            basePath = os.path.dirname(resource)
-        elif os.path.isdir(resource):
-            fileList = [file for file in os.listdir(resource) if isfile(os.path.join(resource,file))]
-            basePath = resource
-        else:
-            print("ERROR: resource must be either a file or a directory")
+
+
+        if not os.path.isfile(options['resource']):
+            print("ERROR: couldn't find {}".format(options['resource']))
+
 
         importMap = {
-            'Positions.csv': 'Job',
-            'Education.csv': 'Education',
-            'Skills.csv': 'Skill',
-            'Proile.csv': 'Basics',
-            'Languages.csv': 'Language'
+            'resume.profile': Profile,
+            'resume.basics': Basics,
+            'resume.education': Education,
+            'resume.educationhighlight': EducationHighlight,
+            'resume.job': Job,
+            'resume.jobhighlight': JobHighlight,
+            'resume.volunteer': Volunteer,
+            'resume.volunteerhighlight': VolunteerHighlight,
+            'resume.language': Language,
+            'resume.skill': Skill,
         }
 
-        for f in fileList:
-            if f in importMap:
-                self.processCSV(os.path.join(basePath, f), importMap[f])
+        pks = defaultdict(dict)
 
-    def processCSV(self, filePath, modelName):
+        # model_names = set()
+        with open(options['resource'], 'r') as fh:
+            data = json.loads(fh.read())
+            highlights_for_later = []
+            for entry in data:
+                if 'resume' not in entry['model']:
+                    continue
+                if 'highlight' in entry['model']:
+                    highlights_for_later.append(entry)
+                    continue
+                # model_names.add(entry['model'])
+                print('line: {}'.format(entry))
+                model_class = importMap[entry['model']]
+                model_obj = model_class()
+                for key, value in entry['fields'].items():
+                    setattr(model_obj, key, value)
+                model_obj.save()
+                pks[model_class.__name__.lower()][entry['pk']] = model_obj.pk
+
+                highlight_map = {
+                    'resume.jobhighlight': Job,
+                    'resume.volunteerhighlight': Volunteer,
+                    'resume.educationhighlight': Education,
+                }
+
+            for entry in highlights_for_later:
+                print('highlight entry', entry)
+                model_obj = importMap[entry['model']]()
+                print('line: {}'.format(entry))
+                parent_class = highlight_map[entry['model']]
+                model_name = parent_class.__name__.lower()
+                for key, value in entry['fields'].items():
+                    if key == model_name:
+                        parent = parent_class.objects.get(pk=pks[model_name][value])
+                        setattr(model_obj, key, parent)
+                    else:
+                        setattr(model_obj, key, value)
+                    print('lc root ', (Job.__name__.lower()))
+                    print('parent model', parent_class)
+
+                model_obj.save()
+
+        # print('model names: {}'.format(model_names))
+
+
+    def processJSON(self, filePath, modelName):
+            # print('file, model=', filePath, model)
             fieldMap = self.fieldMaps[modelName]
             Model = getattr(importlib.import_module('resume.models'), modelName)
             with open(filePath, 'r') as fh:
@@ -60,7 +109,9 @@ class Command(BaseCommand):
                             attrDict[fieldMap[key] + 'Precision'] = precision
                         else:
                             attrDict[fieldMap[key]] = row[key]
+                    #print('attrdict=', attrDict)
                     modInst = Model(**attrDict)
+                    #print('modinst', modInst)
                     modInst.save()
                     for key in highlightFields:
                         if len(row[key]) > 2:
@@ -83,6 +134,7 @@ class Command(BaseCommand):
 
 
     def dateConvert(self, dateString):
+        #print('match groups', match.groups)
         if len(dateString) == 4:
             return (datetime.date(int(dateString),1,1), 'y')
         else:

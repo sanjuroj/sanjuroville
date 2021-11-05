@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<meta charSet="utf-8">
+<html>
+
+  <head>
+      <title>Sanjuroville</title>
+      <link href="https://fonts.googleapis.com/css?family=Lato|VT323" rel="stylesheet">
+  </head>
+
+  <body class="new-body-color">
+
+    <form action="/library/">
+      <input type="submit" value="Reset" />
+    </form>
+
+    <table>
+      <thead>
+      <tr>
+        <td>ISBN</td>
+        <td>Title</td>
+      </tr>
+      </thead>
+      <tbody>
+        {% for row in results %}
+          <tr>
+            <td>{{ row.0 }}</td>
+            <td>
+              <strong>Title</strong>: {{ row.1 }}<br/>
+              {% if row.2 %}
+                <strong>Subjects</strong>: {{ row.2 }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+  </body>
+
+</html>
+
