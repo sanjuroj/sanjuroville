@@ -26,7 +26,12 @@
         {% for row in results %}
           <tr>
             <td>{{ row.0 }}</td>
-            <td>{{ row.1 }}</td>
+            <td>
+              <strong>Title</strong>: {{ row.1 }}<br/>
+              {% if row.2 %}
+                <strong>Subjects</strong>: {{ row.2 }}
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>
