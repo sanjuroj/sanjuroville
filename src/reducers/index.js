@@ -14,7 +14,8 @@ const defaultStore = {
         'education': [],
         'volunteer': [],
         'skill': [],
-        'language': []
+        'language': [],
+        'skill_groups': []
     },
     'groupFlag': false,
     'highlightTracker': {}

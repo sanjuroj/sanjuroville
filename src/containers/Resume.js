@@ -6,6 +6,7 @@ import NameLevelBlurbList from '../components/resume/NameLevelBlurbList';
 import ControlBar from '../components/resume/ControlBar';
 import ContactBox from '../components/resume/ContactBox';
 import CategoryGroup from '../components/resume/CategoryGroup.js';
+import GroupedList from "../components/resume/GroupedList";
 
 class Resume extends Component {
     
@@ -95,8 +96,9 @@ class Resume extends Component {
                             {categoryList}
                         </section>
                         <section id="skilz" className="skilz-card" >
-                            <NameLevelBlurbList 
-                                data={this.sortResDataByLevel(this.props.resumeData.skill, 'rev')} 
+                            <GroupedList
+                                data={this.props.resumeData.skill}
+                                skillGroups = {this.props.resumeData.skill_groups}
                                 heading="SKILLS"
                                 showLevels={false}
                             />

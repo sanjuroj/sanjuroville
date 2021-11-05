@@ -67,4 +67,6 @@ class APIAll (APIView):
         for model, highlight_model in categories:
             serializer = self.serializer_factory(model, highlight_model)
             response[model.lower()] = serializer.data
+        response['skill_groups'] = Skill.SKILL_GROUPS
+
         return JsonResponse(response)

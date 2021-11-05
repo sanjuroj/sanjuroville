@@ -28,7 +28,7 @@ export default class ControlBar extends Component {
                             className="cmn-toggle cmn-toggle-round" 
                             type="checkbox" 
                             checked={this.props.groupFlag}
-                            onClick={this.handleChange}
+                            onChange={this.handleChange}
                         />
                         <label htmlFor="cmn-toggle-1"></label>
                     </div>
