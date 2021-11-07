@@ -2,9 +2,11 @@ pip-tools
 Django
 django-phonenumber-field
 djangorestframework
+dj-database-url
 Markdown
 pep8
 phonenumberslite  # needed by django-phonenumber-field
 psycopg2
+python-dotenv
 requests
 titlecase
