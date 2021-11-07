@@ -1,5 +1,6 @@
 
 import os
+import sys
 import dj_database_url
 from dotenv import load_dotenv
 from pathlib import Path
@@ -104,4 +105,10 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 X_FRAME_OPTIONS = os.getenv('X_FRAME_OPTIONS', 'DENY')
 
 default_db_url = 'sqlite:///' + str(BASE_DIR / 'sqlite3.db')
-DATABASES = {'default': dj_database_url.parse(os.getenv('DATABASE_URL', default_db_url))}
+# DATABASES = {'default': dj_database_url.parse(os.getenv('DATABASE_URL', default_db_url))}
+if len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    # if os.getenv("DATABASE_URL", None) is None:
+    #     raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL", default_db_url)),
+    }
