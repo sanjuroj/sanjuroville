@@ -1,6 +1,5 @@
 
 import os
-from .settings_local import *
 import dj_database_url
 from dotenv import load_dotenv
 from pathlib import Path
