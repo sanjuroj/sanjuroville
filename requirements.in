@@ -3,6 +3,7 @@ Django
 django-phonenumber-field
 djangorestframework
 dj-database-url
+gunicorn
 Markdown
 pep8
 phonenumberslite  # needed by django-phonenumber-field
