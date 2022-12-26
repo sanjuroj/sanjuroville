@@ -1,2 +1,1 @@
-# Needed for DO deployment
 python-3.11.1
